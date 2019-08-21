@@ -1,0 +1,28 @@
+struct FILE {
+    struct HEADER {
+        char    filetype[4] <name="CTC String">;
+        byte    unknownHeaderBytes[4] <name="Unknown Bytes">;
+        int     numCCLRecords <name="Number of Collision Volumes", bgcolor=0xffff56>;
+        byte    unknownHeaderBytesCont[4] <name="More Unknown Bytes">;
+    } header <name="Header Definition", bgcolor=0x93671a>;
+
+    struct CCLRECORDS {
+        byte    unknownFrontBytes[4];
+        short   boneIDOne <name="Start Position Bone ID", bgcolor=0xff56aa, comment="The first sphere of the collision capsule will be placed at the lcoation of this bone ID">;
+        short   boneIDTwo <name="End Position Bone ID", bgcolor=0xff56ff, comment="The end sphere of the collision capsule will be placed at the lcoation of this bone ID">;
+        byte    unknownFrontBytesCont[8] <name="Unknown Bytes">;
+        struct  STARTSPHERE {
+            float xOffset <name="X offset", bgcolor=0x5656ff, comment="About 1:1 in blender units">;
+            float yOffset <name="Y offset", bgcolor=0x56ff56, comment="About 1:1 in blender units">;
+            float zOffset <name="Z offset", bgcolor=0xff5656, comment="About 1:1 in blender units">;
+            float radius <name="Radius", bgcolor=0x56ffff, comment="About 1:10 in blender units">;
+        } startsphere <name="Start Sphere Definition">;
+        struct  ENDSPHERE {
+            float xOffset <name="X offset", bgcolor=0x5656ff, comment="About 1:1 in blender units">;
+            float yOffset <name="Y offset", bgcolor=0x56ff56, comment="About 1:1 in blender units">;
+            float zOffset <name="Z offset", bgcolor=0xff5656, comment="About 1:1 in blender units">;
+            float radius <name="Radius", bgcolor=0x56ffff, comment="About 1:10 in blender units">;
+        } endsphere <name="End Sphere Definition">;
+        byte    unknownEndBytes[16] <name="More Unknown Bytes", bgcolor=0x375b3d>;
+    } cclrecords [ header.numCCLRecords ] <name="Collision Capsule Definition", bgcolor=0x263f2a>;
+} file <name="CCL File">;
